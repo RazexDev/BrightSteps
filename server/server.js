@@ -30,7 +30,8 @@ app.use(cors({
     origin: [
         "http://localhost:3000", // Standard React Local
         "http://localhost:5173", // Vite Local
-        "https://bright-steps-five.vercel.app" // Your Live Vercel Frontend
+        "https://bright-steps-five.vercel.app", // Your first Vercel URL
+        "https://bright-steps-mahithmindupa-2060s-projects.vercel.app" // 👈 YOUR EXACT ACTIVE VERCEL URL
     ],
     credentials: true // Crucial if your app uses cookies or sessions
 }));
