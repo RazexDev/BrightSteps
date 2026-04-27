@@ -1,13 +1,12 @@
 require('dotenv').config();
-const dns = require('dns'); // 👈 NEW: Import Node's built-in DNS module
+const dns = require('dns'); 
 
-// 👈 NEW: Force Node to use Google's DNS to fix Atlas SRV resolution issues
+// Force Node to use Google's DNS to fix Atlas SRV resolution issues
 dns.setServers(['8.8.8.8', '8.8.4.4']);
 
 // Global Error Handlers for Stability
 process.on('uncaughtException', (err) => {
   console.error('🔥 UNCAUGHT EXCEPTION:', err);
-  // Give the server a few ms to log before exiting
   setTimeout(() => process.exit(1), 100);
 });
 
@@ -26,8 +25,16 @@ const progressRoutes = require('./routes/progressRoutes');
 
 const app = express();
 
-// Middleware
-app.use(cors());
+// --- THE NEW CORS SHIELD ---
+app.use(cors({
+    origin: [
+        "http://localhost:3000", // Standard React Local
+        "http://localhost:5173", // Vite Local
+        "https://bright-steps-five.vercel.app" // Your Live Vercel Frontend
+    ],
+    credentials: true // Crucial if your app uses cookies or sessions
+}));
+
 app.use(express.json());
 
 // Serve uploaded files (profile pictures etc.) as static assets
