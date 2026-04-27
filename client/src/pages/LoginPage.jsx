@@ -82,8 +82,12 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     setLoading(true);
+
+    // Define your backend URL (works for Vite, CRA, or hard fallback)
+    const API_URL = import.meta.env?.VITE_API_URL || process.env.REACT_APP_API_URL || "https://brightsteps-qgch.onrender.com";
+
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(`${API_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -115,8 +119,12 @@ export default function LoginPage() {
   const handleGoogleSuccess = async (credentialResponse) => {
     setError('');
     setLoading(true);
+
+    // Define your backend URL here too
+    const API_URL = import.meta.env?.VITE_API_URL || process.env.REACT_APP_API_URL || "https://brightsteps-qgch.onrender.com";
+
     try {
-      const response = await fetch('/api/auth/google', {
+      const response = await fetch(`${API_URL}/api/auth/google`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token: credentialResponse.credential }),
