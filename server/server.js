@@ -25,14 +25,9 @@ const progressRoutes = require('./routes/progressRoutes');
 
 const app = express();
 
-// --- THE NEW CORS SHIELD ---
+// --- THE BULLETPROOF CORS SHIELD (NUCLEAR OPTION) ---
 app.use(cors({
-    origin: [
-        "http://localhost:3000", // Standard React Local
-        "http://localhost:5173", // Vite Local
-        "https://bright-steps-five.vercel.app", // Your first Vercel URL
-        "https://bright-steps-mahithmindupa-2060s-projects.vercel.app" // 👈 YOUR EXACT ACTIVE VERCEL URL
-    ],
+    origin: true, // 👈 Dynamically accepts ANY frontend URL
     credentials: true // Crucial if your app uses cookies or sessions
 }));
 
