@@ -6,7 +6,8 @@ import MagicCanvas from '../components/MagicCanvas';
 import CursorTrail from '../components/CursorTrail';
 import { useTilt } from '../hooks/useTilt';
 
-const API_BASE = process.env.REACT_APP_API_URL || '/api';
+// 👈 NEW: Bulletproof API Base (works for Vite, CRA, or direct fallback)
+const API_BASE = import.meta.env?.VITE_API_URL || process.env.REACT_APP_API_URL || "https://brightsteps-qgch.onrender.com";
 
 const ALL_CARDS = [
   {
@@ -133,7 +134,8 @@ export default function StudentDashboard() {
 
       console.log(`📡 [verifyParentPin] Verifying PIN for ${userId} at ${API_BASE}...`);
 
-      const res = await fetch(`${API_BASE}/auth/verify-pin`, {
+      // 👈 NEW: Added /api right before /auth/verify-pin so it perfectly matches your backend!
+      const res = await fetch(`${API_BASE}/api/auth/verify-pin`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, pin: parentPin }),
